@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>NEON: LAST RUN — Cyberpunk Arcade</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="bg-grid" aria-hidden="true"></div>
+<div id="bg-glow" aria-hidden="true"></div>
+
+<div id="app">
+  <header id="topbar">
+    <div class="logo">NEON<span>: LAST RUN</span></div>
+    <div class="top-right">
+      <div class="chip" title="Best survival score">60S <b id="topHighSurvival">0</b></div>
+      <div class="chip pink" title="Best runner score">RUN <b id="topHighRunner">0</b></div>
+      <button id="btnMute" class="icon-btn" aria-label="Toggle sound">♪</button>
+    </div>
+  </header>
+
+  <div id="game-wrap">
+    <canvas id="game" width="960" height="600"></canvas>
+
+    <!-- HUD -->
+    <div id="hud" class="hidden">
+      <div class="hud-left">
+        <div class="hud-label" id="hudMode">LAST 60 SECONDS</div>
+        <div class="hud-score">SCORE <span id="hudScore">0</span></div>
+      </div>
+      <div class="hud-center">
+        <div id="hudTime">60.0</div>
+        <div id="hudSub">SURVIVE</div>
+      </div>
+      <div class="hud-right">
+        <div class="hud-label">BEST <span id="hudHigh">0</span></div>
+        <div id="healthWrap">
+          <div id="healthBar"><div id="healthFill"></div></div>
+          <div id="healthText">100</div>
+        </div>
+        <div id="pulseWrap" class="hidden">PULSE <span id="pulseBar"><span id="pulseFill"></span></span></div>
+      </div>
+    </div>
+
+    <div id="flash" aria-hidden="true"></div>
+
+    <!-- MENU -->
+    <div id="menu-screen" class="overlay">
+      <div class="panel menu-panel">
+        <h1 class="title">NEON<span>: LAST RUN</span></h1>
+        <p class="subtitle">CYBERPUNK ARCADE // TWO MODES // ONE LAST RUN</p>
+        <div class="mode-cards">
+          <div class="mode-card cyan">
+            <h2>LAST 60 SECONDS</h2>
+            <p class="desc">Top-down survival arena. Dodge the swarm, pulse-blast enemies, grab medkits &amp; overdrive. Survive the full countdown.</p>
+            <ul class="keys">
+              <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> / arrows — move</li>
+              <li><kbd>Space</kbd> — pulse blast</li>
+              <li><kbd>P</kbd> — pause</li>
+            </ul>
+            <div class="best">BEST: <span id="menuHighSurvival">0</span></div>
+            <button id="btnSurvival" class="btn neon-cyan">▶ ENTER THE ARENA</button>
+          </div>
+          <div class="mode-card magenta">
+            <h2>GLITCH RUNNER</h2>
+            <p class="desc">Endless neon runner. The city scrolls faster every second. Jump the barricades, slide under gates, eat energy orbs.</p>
+            <ul class="keys">
+              <li><kbd>Space</kbd> / <kbd>↑</kbd> — jump</li>
+              <li><kbd>↓</kbd> — slide</li>
+              <li><kbd>P</kbd> — pause</li>
+            </ul>
+            <div class="best">BEST: <span id="menuHighRunner">0</span></div>
+            <button id="btnRunner" class="btn neon-pink">▶ START THE RUN</button>
+          </div>
+        </div>
+        <p class="hint">Sound starts after your first click / keypress. High scores save on this device. Touch controls appear on mobile.</p>
+      </div>
+    </div>
+
+    <!-- PAUSE -->
+    <div id="pause-screen" class="overlay hidden">
+      <div class="panel small">
+        <h2 class="paused-title">‖ PAUSED</h2>
+        <p class="paused-sub" id="pauseInfo">Take a breath, runner.</p>
+        <div class="btn-row">
+          <button id="btnResume" class="btn neon-cyan">RESUME</button>
+          <button id="btnRestart" class="btn neon-purple">RESTART</button>
+          <button id="btnMenu1" class="btn ghost">MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME OVER -->
+    <div id="gameover-screen" class="overlay hidden">
+      <div class="panel small">
+        <h2 id="finalTitle" class="over-title">SIGNAL LOST</h2>
+        <div id="newBest" class="newbest hidden">★ NEW BEST ★</div>
+        <div id="finalStats" class="stats"></div>
+        <div class="final-score">FINAL SCORE <span id="finalScore">0</span></div>
+        <div class="btn-row">
+          <button id="btnReplay" class="btn neon-pink">↻ RUN IT BACK</button>
+          <button id="btnMenu2" class="btn ghost">MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOUCH -->
+    <div id="touch-controls" class="hidden">
+      <div id="touchLeft">
+        <button id="btnJump" class="touch-btn">▲<small>JUMP</small></button>
+        <button id="btnSlide" class="touch-btn">▼<small>SLIDE</small></button>
+      </div>
+      <div id="touchRight">
+        <button id="btnPulse" class="touch-btn pulse">◉<small>PULSE</small></button>
+      </div>
+    </div>
+  </div>
+
+  <footer id="controls-bar">
+    <div class="ctl-group">
+      <button id="btnStart" class="btn mini neon-cyan">START</button>
+      <button id="btnPause" class="btn mini neon-purple">PAUSE</button>
+    </div>
+    <div class="help">
+      <span><kbd>WASD</kbd> move</span>
+      <span><kbd>Space</kbd> jump / pulse</span>
+      <span><kbd>↓</kbd> slide</span>
+      <span><kbd>P</kbd> pause</span>
+    </div>
+  </footer>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
